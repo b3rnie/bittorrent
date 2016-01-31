@@ -1,0 +1,16 @@
+#!/usr/bin/ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+require 'client/client'
+require 'thread'
+
+client = Client.new(:logfile  => "/home/bernie/rtracker/torrents/logs/client.log",
+                    :metainfo => "/home/bernie/rtracker/torrents/new",
+                    :path     => "/home/bernie/rtracker/torrents",
+                    :port     => 12345,
+                    :session  => "/home/bernie/rtracker/session",
+                    :tracker_port => 10022
+                    )
+client.run
+
+
+

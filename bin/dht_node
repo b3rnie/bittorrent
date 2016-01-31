@@ -1,0 +1,20 @@
+#!/usr/bin/ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'dht/server'
+
+instances = (1..20).map { |n|
+  {:instance => "instance-#{n}", :port => 9999 + n}
+}
+
+server = Server.new(:instances => instances,
+                    :data_dir => "database/dht",
+                    :log_dir => "logs/dht")
+
+instances.each { |instance|
+  server.bootstrap(instance[:instance])
+  server.find_node(instance[:instance])
+}
+
+server.run()
+
